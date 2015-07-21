@@ -2,8 +2,9 @@
 version '0.1-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'maven'
 
-sourceCompatibility = 1.5
+sourceCompatibility = 1.7
 def mainClassName = "com.gitblit.plugin.gitblitrepoposixpermission.Plugin"
 
 repositories {
@@ -14,7 +15,6 @@ repositories {
 }
 
 dependencies {
-  compile fileTree(dir: 'libs', include: '*.jar')
   testCompile group: 'junit', name: 'junit', version: '4.11'
   compile group: 'com.gitblit', name: 'gitblit', version: '1.6.2'
   compile group: 'com.google.inject', name: 'guice', version: '4.0'
@@ -27,17 +27,20 @@ jar {
             'plugin-version': '0.1',
             'plugin-requires': '1.5.0',
             'plugin-description': "Manages users and groups of all repos based on posix folder attributes of the git repository.",
-            'plugin-provider': 'William Cork',
+            'plugin-provider': System.getenv("USER"),
             'plugin-class': "${mainClassName}",
             'plugin-dependencies': ''
+  }
+  //TODO: add JUST the classes of guice to the jar.
+  from configurations.compile.collect {
+    (it.isFile() && it.getName().contains('guice')) ? zipTree(it) : {return}
   }
 }
 
 //gitblit plugin zip type
-task distZip (type: Zip, overwrite: true) {
-  dependsOn jar
+task distZip (type: Zip, overwrite: true, dependsOn: 'jar') {
+  description = "Creates necessary zip in the format desired by gitblit"
   into ('classes') {
     from zipTree(jar.archivePath)
   }
 }
-build.dependsOn distZip
