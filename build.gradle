@@ -16,7 +16,6 @@ repositories {
 dependencies {
   testCompile group: 'junit', name: 'junit', version: '4.11'
   compile group: 'com.gitblit', name: 'gitblit', version: '1.6.2'
-  compile group: 'com.google.inject', name: 'guice', version: '4.0'
 }
 
 jar {
@@ -29,10 +28,6 @@ jar {
             'plugin-provider': System.getenv("USER"),
             'plugin-class': "${mainClassName}",
             'plugin-dependencies': ''
-  }
-  //TODO: add JUST the classes of guice to the jar.
-  from configurations.compile.collect {
-    (it.isFile() && it.getName().contains('guice')) ? zipTree(it) : {return}
   }
 }
 
