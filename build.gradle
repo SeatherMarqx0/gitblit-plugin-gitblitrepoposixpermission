@@ -34,8 +34,10 @@ jar {
 }
 
 //gitblit plugin zip type
-task distZip (type: Zip, overwrite: true, dependsOn: 'jar') {
+task distZip (type: Zip, overwrite: true) {
+  dependsOn jar
   into ('classes') {
     from zipTree(jar.archivePath)
   }
 }
+build.dependsOn distZip
