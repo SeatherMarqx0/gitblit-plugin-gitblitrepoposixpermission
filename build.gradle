@@ -2,7 +2,6 @@
 version '0.1-SNAPSHOT'
 
 apply plugin: 'java'
-apply plugin: 'maven'
 
 sourceCompatibility = 1.7
 def mainClassName = "com.gitblit.plugin.gitblitrepoposixpermission.Plugin"
