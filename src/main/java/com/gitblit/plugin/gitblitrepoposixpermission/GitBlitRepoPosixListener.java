@@ -50,16 +50,16 @@ public class GitBlitRepoPosixListener extends LifeCycleListener
   @Override
   public void onStartup()
   {
-    log.info(this.getClass().getName() + ": Starting GitBlitRepoPosixPlugin");
     if (ISPOSIX)
     {
       try
       {
+        log.info(this.getClass().getName() + ": Starting");
         //Get properties
         prop.load(new FileInputStream("GitBlitRepoPosix.properties"));
         //Modify repos to owner:group
         modAllReposByString();
-        log.info(this.getClass().getName() + ": Completed posix repository permission settings");
+        log.info(this.getClass().getName() + ": Completed");
       } catch (IOException e)
       {
         log.warn("GitBlitDirectoryManager failure: " + e);
