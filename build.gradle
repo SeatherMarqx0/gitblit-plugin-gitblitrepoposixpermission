@@ -38,4 +38,4 @@ task distZip (type: Zip, overwrite: true, dependsOn: 'jar') {
     from zipTree(jar.archivePath)
   }
 }
-build.doLast(distZip)
+build.finalizedBy(distZip)
