@@ -50,6 +50,7 @@ public class GitBlitRepoPosixListener extends LifeCycleListener
   @Override
   public void onStartup()
   {
+    log.info(this.getClass().getName() + ": Starting GitBlitRepoPosixPlugin");
     if (ISPOSIX)
     {
       try
@@ -134,12 +135,12 @@ public class GitBlitRepoPosixListener extends LifeCycleListener
       localRepo.close();
 
       //Add repo to group(attrs.group().getName()) in users.conf via java API
-      log.info(String.format("Finding TeamModel for group=%s: %s",
+      log.debug(String.format("Finding TeamModel for group=%s: %s",
               attrs.group().getName(), userManager.getTeamModel(attrs.group().getName())));
       TeamModel localTeam = userManager.getTeamModel(attrs.group().getName());
       if (localTeam != null)
       {
-        log.info(String.format("Adding %s permissions of repo: %s to group: %s",
+        log.debug(String.format("Adding %s permissions of repo: %s to group: %s",
                 Constants.AccessPermission.DELETE, currentRepName, attrs.group().getName()));
         localTeam.setRepositoryPermission(currentRepName, Constants.AccessPermission.DELETE);
       } else
