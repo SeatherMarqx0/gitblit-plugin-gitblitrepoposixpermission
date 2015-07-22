@@ -32,6 +32,7 @@ jar {
 }
 
 //gitblit plugin zip type
+//TODO: Make this task run after build task
 task distZip (type: Zip, overwrite: true, dependsOn: 'jar') {
   description = "Creates necessary zip in the format desired by gitblit"
   into ('classes') {

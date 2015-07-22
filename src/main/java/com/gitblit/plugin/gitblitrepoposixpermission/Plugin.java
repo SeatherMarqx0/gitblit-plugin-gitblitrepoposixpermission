@@ -1,9 +1,8 @@
 package com.gitblit.plugin.gitblitrepoposixpermission;
 
+import com.gitblit.extensions.GitblitPlugin;
 import ro.fortsoft.pf4j.PluginWrapper;
 import ro.fortsoft.pf4j.Version;
-
-import com.gitblit.extensions.GitblitPlugin;
 
 public class Plugin extends GitblitPlugin
 {

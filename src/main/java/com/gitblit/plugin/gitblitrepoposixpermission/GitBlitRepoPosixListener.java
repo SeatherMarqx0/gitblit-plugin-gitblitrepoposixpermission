@@ -33,7 +33,7 @@ public class GitBlitRepoPosixListener extends LifeCycleListener
   private static final boolean ISPOSIX = FileSystems.getDefault().supportedFileAttributeViews().contains("posix");
   private static final Properties prop = new Properties();
 
-  final Logger log = LoggerFactory.getLogger(getClass());
+  private final Logger log = LoggerFactory.getLogger(getClass());
   private IRuntimeManager runtimeManager = null;
   private IRepositoryManager repositoryManager = null;
   private IUserManager userManager = null;
@@ -84,7 +84,7 @@ public class GitBlitRepoPosixListener extends LifeCycleListener
    */
   private void modAllReposByString() throws IOException
   {
-    for(String currentRepName : repositoryManager.getRepositoryList())
+    for (String currentRepName : repositoryManager.getRepositoryList())
     {
       Repository localRepo = repositoryManager.getRepository(currentRepName);
       File currentFolder = localRepo.getDirectory();
@@ -137,14 +137,14 @@ public class GitBlitRepoPosixListener extends LifeCycleListener
       log.info(String.format("Finding TeamModel for group=%s: %s",
               attrs.group().getName(), userManager.getTeamModel(attrs.group().getName())));
       TeamModel localTeam = userManager.getTeamModel(attrs.group().getName());
-      if(localTeam != null)
+      if (localTeam != null)
       {
         log.info(String.format("Adding %s permissions of repo: %s to group: %s",
                 Constants.AccessPermission.DELETE, currentRepName, attrs.group().getName()));
         localTeam.setRepositoryPermission(currentRepName, Constants.AccessPermission.DELETE);
-      }
-      else
+      } else
       {
+        //TODO: Create group based on posix group
         log.warn("TeamModel for group " + attrs.group().getName() + " does not exist.");
       }
       userManager.updateTeamModel(attrs.group().getName(), localTeam);
